@@ -2,14 +2,24 @@
 
 ![snip banner](assets/snip.png)
 
-Save long, parameterized commands as named snippets and run them with ease.
-
 `snip` stores shell commands as templates with `{{placeholders}}`, then resolves
 and runs them with the changing parts supplied as `key=value` arguments or filled
 in interactively. The fully-resolved command is shown for confirmation before it
 runs, and the last value used for each variable is remembered as the next default.
 
 ## Install
+
+With Go (recommended):
+
+```sh
+go install github.com/54L1M/snip@latest   # or @v0.1.1 for a specific release
+```
+
+The binary is installed to `$(go env GOPATH)/bin` (or `$GOBIN`) as `snip`; make
+sure that directory is on your `PATH`. The version is taken from the release tag
+automatically.
+
+From source:
 
 ```sh
 make build          # -> ./bin/snip
@@ -67,10 +77,10 @@ you can turn the changing parts into `{{placeholders}}`. It understands zsh
 
 `snip setup` writes `~/.config/snip/.snip`:
 
-| Key | Meaning |
-|---|---|
-| `EDITOR` | Editor for `snip add` (no `--cmd`) and `snip edit`. Falls back to `$EDITOR`, `$VISUAL`, then `vi`. |
-| `AUTO_CONFIRM` | `true` skips the run confirmation prompt. |
+| Key            | Meaning                                                                                            |
+| -------------- | -------------------------------------------------------------------------------------------------- |
+| `EDITOR`       | Editor for `snip add` (no `--cmd`) and `snip edit`. Falls back to `$EDITOR`, `$VISUAL`, then `vi`. |
+| `AUTO_CONFIRM` | `true` skips the run confirmation prompt.                                                          |
 
 Snippets are stored in `~/.config/snip/snippets.json`.
 
