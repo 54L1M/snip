@@ -21,7 +21,8 @@ var editCmd = &cobra.Command{
 	Short: "Edit a snippet's command template.",
 	Long: `Opens the snippet's command template in your editor ($EDITOR). Save and
 close the editor to update it. Use -d to also update the description.`,
-	Args: cobra.ExactArgs(1),
+	Args:              cobra.ExactArgs(1),
+	ValidArgsFunction: completeSnippetName,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		st, err := store.Load()
 		if err != nil {

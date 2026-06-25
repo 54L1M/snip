@@ -15,8 +15,9 @@ import (
 var showCmd = &cobra.Command{
 	Use:   "show <name>",
 	Short: "Show a snippet's template and variables.",
-	Long:  `Prints the full template for a snippet, its description, and the variables it declares with their remembered defaults.`,
-	Args:  cobra.ExactArgs(1),
+	Long:              `Prints the full template for a snippet, its description, and the variables it declares with their remembered defaults.`,
+	Args:              cobra.ExactArgs(1),
+	ValidArgsFunction: completeSnippetName,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		st, err := store.Load()
 		if err != nil {

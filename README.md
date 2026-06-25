@@ -1,5 +1,7 @@
 # snip
 
+![snip banner](assets/snip.png)
+
 Save long, parameterized commands as named snippets and run them with ease.
 
 `snip` stores shell commands as templates with `{{placeholders}}`, then resolves
@@ -71,6 +73,28 @@ you can turn the changing parts into `{{placeholders}}`. It understands zsh
 | `AUTO_CONFIRM` | `true` skips the run confirmation prompt. |
 
 Snippets are stored in `~/.config/snip/snippets.json`.
+
+## Shell completion
+
+`snip` ships completion scripts. Beyond subcommands and flags, `run`, `show`,
+`edit`, and `rm` complete your **saved snippet names**, and `snip run <name>`
+then completes the remaining `var=` placeholders.
+
+```sh
+# zsh — load on each shell
+echo 'source <(snip completion zsh)' >> ~/.zshrc
+# zsh — or install once into your fpath
+snip completion zsh > "${fpath[1]}/_snip"
+
+# bash
+echo 'source <(snip completion bash)' >> ~/.bashrc
+
+# fish
+snip completion fish > ~/.config/fish/completions/snip.fish
+```
+
+(zsh also needs `autoload -U compinit && compinit` in `~/.zshrc` if you don't
+already have it.)
 
 ## Stack
 

@@ -39,7 +39,8 @@ snippet. The fully-resolved command is shown for confirmation before it runs.`,
 
   # Just print the resolved command, don't run it
   snip run deploy app=web tag=1.4.2 --print`,
-	Args: cobra.ArbitraryArgs,
+	Args:              cobra.ArbitraryArgs,
+	ValidArgsFunction: completeRun,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if dr, _ := cmd.Flags().GetBool("dry-run"); dr {
 			runPrint = true

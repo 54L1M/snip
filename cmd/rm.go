@@ -18,8 +18,9 @@ var rmCmd = &cobra.Command{
 	Use:     "rm <name>",
 	Aliases: []string{"remove", "delete"},
 	Short:   "Delete a snippet.",
-	Long:    `Deletes a saved snippet. Asks for confirmation unless -y is given.`,
-	Args:    cobra.ExactArgs(1),
+	Long:              `Deletes a saved snippet. Asks for confirmation unless -y is given.`,
+	Args:              cobra.ExactArgs(1),
+	ValidArgsFunction: completeSnippetName,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		name := args[0]
 
