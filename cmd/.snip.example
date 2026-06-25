@@ -1,0 +1,9 @@
+# --- snip settings ---
+
+# Editor used by `snip add` (no --cmd) and `snip edit`.
+# Falls back to $EDITOR, then $VISUAL, then "vi" when unset.
+# EDITOR="nvim"
+
+# Set to 'true' to skip the "Run this? [y/N]" confirmation on `snip run`.
+# Equivalent to always passing --yes. Leave false for production safety.
+AUTO_CONFIRM=false
