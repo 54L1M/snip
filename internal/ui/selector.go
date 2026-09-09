@@ -6,6 +6,7 @@ package ui
 import (
 	"fmt"
 	"io"
+	"os"
 	"strings"
 
 	"github.com/charmbracelet/bubbles/list"
@@ -103,7 +104,7 @@ func (m selectorModel) View() string {
 // RunSelector shows a filterable list and returns the chosen value. An empty
 // string means the user quit without selecting.
 func RunSelector(choices []string, title string) (string, error) {
-	p := tea.NewProgram(newSelectorModel(choices, title))
+	p := tea.NewProgram(newSelectorModel(choices, title), tea.WithOutput(os.Stderr))
 	finalModel, err := p.Run()
 	if err != nil {
 		return "", err

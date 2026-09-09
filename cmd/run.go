@@ -6,7 +6,6 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"sort"
 	"strings"
 
 	"github.com/mattn/go-isatty"
@@ -144,12 +143,7 @@ func parseRunArgs(args []string) (name string, provided map[string]string) {
 }
 
 func pickSnippet(st *snippet.Store) (string, error) {
-	names := make([]string, 0, len(st.Snippets))
-	for n := range st.Snippets {
-		names = append(names, n)
-	}
-	sort.Strings(names)
-	return ui.RunSelector(names, "Select a snippet:")
+	return ui.RunSelector(sortedNames(st), "Select a snippet:")
 }
 
 // resolveValues fills every variable of s: from provided args first, otherwise

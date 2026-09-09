@@ -7,9 +7,12 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"sort"
 	"strings"
 
 	"github.com/spf13/viper"
+
+	"github.com/54L1M/snip/internal/snippet"
 )
 
 // editorBinary resolves the editor to use: viper EDITOR, then $EDITOR, then
@@ -85,4 +88,22 @@ func asExitError(err error, target **exec.ExitError) bool {
 		return true
 	}
 	return false
+}
+
+// sortedNames returns the store's snippet names in alphabetical order.
+func sortedNames(st *snippet.Store) []string {
+	names := make([]string, 0, len(st.Snippets))
+	for n := range st.Snippets {
+		names = append(names, n)
+	}
+	sort.Strings(names)
+	return names
+}
+
+// plural formats "1 snippet" / "3 snippets".
+func plural(n int, noun string) string {
+	if n == 1 {
+		return fmt.Sprintf("%d %s", n, noun)
+	}
+	return fmt.Sprintf("%d %ss", n, noun)
 }

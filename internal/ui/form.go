@@ -89,7 +89,7 @@ func (m formModel) View() string {
 // RunForm prompts for each variable with its default pre-filled and returns the
 // collected values. The bool is false if the user canceled (esc/ctrl+c).
 func RunForm(vars []string, defaults map[string]string) (map[string]string, bool, error) {
-	p := tea.NewProgram(newFormModel(vars, defaults))
+	p := tea.NewProgram(newFormModel(vars, defaults), tea.WithOutput(os.Stderr))
 	final, err := p.Run()
 	if err != nil {
 		return nil, false, err
