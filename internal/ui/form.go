@@ -11,6 +11,8 @@ import (
 
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
+	"github.com/charmbracelet/x/term"
 )
 
 type formModel struct {
@@ -105,9 +107,29 @@ func RunForm(vars []string, defaults map[string]string) (map[string]string, bool
 	return values, true, nil
 }
 
-// RenderCommandBox returns the resolved command framed in a styled box.
+// RenderCommandBox returns the resolved command framed in a styled box. When
+// the command is wider than the terminal it is wrapped inside the box, so the
+// border isn't broken up by the terminal's own line wrapping.
 func RenderCommandBox(command string) string {
-	return CommandBoxStyle.Render(command)
+	width := 0
+	if w, _, err := term.GetSize(os.Stdout.Fd()); err == nil {
+		width = w
+	}
+	return renderCommandBox(command, width)
+}
+
+// renderCommandBox frames command, wrapping it to fit a terminal termWidth
+// columns wide. A termWidth of 0 (unknown, e.g. not a TTY) disables wrapping.
+func renderCommandBox(command string, termWidth int) string {
+	style := CommandBoxStyle
+	// Border (2) + padding (2) around the content; leave one spare column so a
+	// line filling the terminal exactly doesn't trigger an extra wrap.
+	const frame = 2 + 2 + 1
+	if termWidth > frame && lipgloss.Width(command)+frame > termWidth {
+		// Width covers content plus padding; the border is added on top.
+		style = style.Width(termWidth - 3)
+	}
+	return style.Render(command)
 }
 
 // Confirm prints a [y/N] prompt and returns true only on an affirmative answer.
