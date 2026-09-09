@@ -12,7 +12,7 @@ runs, and the last value used for each variable is remembered as the next defaul
 With Go (recommended):
 
 ```sh
-go install github.com/54L1M/snip@latest   # or @v0.1.1 for a specific release
+go install github.com/54L1M/snip@latest   # or @v0.2.0 for a specific release
 ```
 
 The binary is installed to `$(go env GOPATH)/bin` (or `$GOBIN`) as `snip`; make
